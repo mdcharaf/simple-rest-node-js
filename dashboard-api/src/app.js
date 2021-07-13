@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import { AppRouter } from './controllers/v0/AppRouter.js';
 
 (async () => {
   dotenv.config();
@@ -7,8 +8,10 @@ import dotenv from 'dotenv';
   const app = express();
   const port = process.env.PORT || 8080;
 
-  app.get('/', async (req, res) => {
-    res.send('Welcome to Dashboard API');
+  app.use('/api/v0/', AppRouter);
+
+  app.get('/', async (_, res) => {
+    res.send('Use /api/v0 endpoint.');
   });
 
   app.listen(port, () => {
