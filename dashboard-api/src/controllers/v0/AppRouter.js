@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { DashboardRouter } from './dashboard/dashboardRouter';
+import { dashboardRouter } from './dashboard/dashboardRouter';
 
 const router = Router();
 
-router.use('/dashboard', DashboardRouter);
+router.use('/dashboard', dashboardRouter);
 
 router.get('/', async (req, res) => {
   res.send('V0');
 });
 
-export const AppRouter = router;
+export const appRouter = router;

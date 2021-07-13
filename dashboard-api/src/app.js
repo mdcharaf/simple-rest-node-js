@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { AppRouter } from './controllers/v0/AppRouter.js';
+import { appRouter } from './controllers/v0/AppRouter.js';
 
 (async () => {
   dotenv.config();
@@ -8,7 +8,7 @@ import { AppRouter } from './controllers/v0/AppRouter.js';
   const app = express();
   const port = process.env.PORT || 8080;
 
-  app.use('/api/v0/', AppRouter);
+  app.use('/api/v0/', appRouter);
 
   app.get('/', async (_, res) => {
     res.send('Use /api/v0 endpoint.');
