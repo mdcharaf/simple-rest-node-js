@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { appRouter } from './controllers/v0/AppRouter.js';
+import { appRouter } from './controllers/v0/appRouter';
 
 (async () => {
   dotenv.config();
