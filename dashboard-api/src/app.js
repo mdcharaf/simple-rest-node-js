@@ -1,12 +1,11 @@
 import express from 'express';
-import dotenv from 'dotenv';
+import { config } from './config';
 import { appRouter } from './controllers/v0/appRouter';
 
 (async () => {
-  dotenv.config();
-
+  console.log(config);
   const app = express();
-  const port = process.env.PORT || 8080;
+  const port = config.port || 8080;
 
   app.use('/api/v0/', appRouter);
 
