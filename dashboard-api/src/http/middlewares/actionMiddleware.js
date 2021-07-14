@@ -1,4 +1,4 @@
-import { request } from '../httpTransactions'
+import { request } from '../httpUtils'
 
 export function redirectToControllerAction(controllerAction) {
   return async (req, res) => {

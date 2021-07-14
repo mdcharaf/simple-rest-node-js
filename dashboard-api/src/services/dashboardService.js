@@ -1,7 +1,8 @@
 export default function makeDashboardService({ dashboardRepo }) {
   return Object.freeze({
     listDashboards,
-    addDashboard
+    addDashboard,
+    removeDashboard
   })
 
   async function listDashboards() {
@@ -10,5 +11,9 @@ export default function makeDashboardService({ dashboardRepo }) {
 
   async function addDashboard(dashboard) {
     return await dashboardRepo.insert(dashboard);
+  }
+
+  async function removeDashboard(id) {
+    return await dashboardRepo.remove({ id });
   }
 }

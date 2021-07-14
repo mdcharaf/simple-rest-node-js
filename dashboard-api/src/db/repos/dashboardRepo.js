@@ -1,7 +1,8 @@
 export default function makeDashboardRepo({ getDbClient }) {
   return Object.freeze({
     list,
-    insert
+    insert,
+    remove
   });
 
   async function list() {
@@ -21,5 +22,14 @@ export default function makeDashboardRepo({ getDbClient }) {
       .insertOne({ _id, ...obj });
 
     return { id: result.insertedId, ...obj };
+  }
+
+  async function remove({ id: _id }) {
+    const dbClient = await getDbClient();
+    const result = await dbClient
+      .collection('dashboards')
+      .deleteOne({ _id });
+
+    return result.deletedCount;
   }
 }
