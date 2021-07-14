@@ -11,6 +11,7 @@
   "author": "Muhammad J.",
   "license": "ISC",
   "dependencies": {
+    "cuid": "^2.1.8",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mongodb": "^4.0.0"

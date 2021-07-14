@@ -1,6 +1,7 @@
-import { dashboardRepo } from '../../db';
-import makeDashboardController from './dashboardController'
+import { dashboardService } from '../../services';
+import { makeDashboard } from '../../models';
+import makeDashboardController from './dashboardController';
 
-const dashboardController = makeDashboardController({ dashboardRepo });
+const dashboardController = makeDashboardController({ dashboardService, makeDashboard });
 
 export { dashboardController };
