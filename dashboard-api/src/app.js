@@ -1,6 +1,6 @@
 import express from 'express';
 import { config } from './config';
-import { appRouter } from './controllers/appRouter';
+import { appRouter } from './http/routes/appRouter';
 
 (async () => {
   const app = express();

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { dashboardRouter } from './dashboard/dashboardRouter';
+import { dashboardRouter } from './dashboardRouter';
 
 const router = Router();
 
