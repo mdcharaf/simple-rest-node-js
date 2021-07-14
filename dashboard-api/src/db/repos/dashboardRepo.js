@@ -38,19 +38,17 @@ export default function makeDashboardRepo({ getDbClient }) {
   async function insertChart({ dashboardId: _id, ...chartObj }) {
     const dbClient = await getDbClient();
 
-    const result = await dbClient
+    await dbClient
       .collection('dashboards')
       .updateOne({ _id }, { $push: { charts: { ...chartObj } }});
-
-    return result.modifiedCount;
   }
 
-  async function removeChart({ dashboardId, chartId }) {
+  async function removeChart({ dashboardId: _id, chartId: id }) {
     const dbClient = await getDbClient();
 
     const result = await dbClient
       .collection('dashboards')
-      .updateOne({ _id: dashboardId }, { $pull: { charts: { _id: chartId } }});
+      .updateOne({ _id }, { $pull: { charts: { id } }});
 
     return result.modifiedCount;
   }

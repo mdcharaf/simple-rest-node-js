@@ -1,6 +1,6 @@
 import { created, badRequest, ok } from '../httpUtils';
 
-export default function makeChartController({ dashboardService }) {
+export default function makeChartController({ dashboardService, makeChart }) {
   return Object.freeze({
     add,
     remove,
@@ -8,13 +8,15 @@ export default function makeChartController({ dashboardService }) {
 
   async function add(httpRequest) {
     try {
-      const result = await dashboardService.addChart(httpRequest.body);
+      const chart = makeChart(httpRequest.body);
+      await dashboardService.addChart(chart);
+
       return created({
         body: {
-          id: result.id,
-          title: result.title,
-          description: result.description,
-          charts: result.charts
+          id: chart.id,
+          title: chart.title,
+          range: chart.range,
+          interval: chart.interval
         }
       });
     } catch (error) {
@@ -26,6 +28,7 @@ export default function makeChartController({ dashboardService }) {
     try {
       const id = httpRequest.params.id;
       const result = await dashboardService.removeDashboard(id);
+
       return ok({
         body: {
           deleteCount: result

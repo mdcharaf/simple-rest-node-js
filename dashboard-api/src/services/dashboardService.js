@@ -19,6 +19,6 @@ export default function makeDashboardService({ dashboardRepo }) {
   }
 
   async function addChart(chart) {
-    return await dashboardRepo.insertChart(chart);
+    await dashboardRepo.insertChart(chart);
   }
 }
