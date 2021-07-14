@@ -3,7 +3,8 @@ export default function makeDashboardService({ dashboardRepo }) {
     listDashboards,
     addDashboard,
     removeDashboard,
-    addChart
+    addChart,
+    removeChart
   })
 
   async function listDashboards() {
@@ -20,5 +21,9 @@ export default function makeDashboardService({ dashboardRepo }) {
 
   async function addChart(chart) {
     await dashboardRepo.insertChart(chart);
+  }
+
+  async function removeChart(dashboardId, chartId) {
+    return await dashboardRepo.removeChart({ dashboardId, chartId });
   }
 }

@@ -26,8 +26,9 @@ export default function makeChartController({ dashboardService, makeChart }) {
 
   async function remove(httpRequest) {
     try {
-      const id = httpRequest.params.id;
-      const result = await dashboardService.removeDashboard(id);
+      const chartId = httpRequest.params.id;
+      const { dashboardId } = httpRequest.body;
+      const result = await dashboardService.removeChart(dashboardId, chartId);
 
       return ok({
         body: {
