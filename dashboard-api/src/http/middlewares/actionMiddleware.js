@@ -15,14 +15,13 @@ export function redirectToControllerAction(controllerAction) {
 
     try {
       const httpResponse = await controllerAction(httpRequest);
-
       if (httpResponse.headers) {
         res.set(httpResponse.headers);
       }
       res.type('json');
       res.status(httpResponse.statusCode).send(httpResponse.body);
     } catch (error) {
-      res.status(500).send({ error: 'Application Crashed!' });
+      res.status(500).send({ error: error.message });
     }
   }
 }
