@@ -1,12 +1,15 @@
 import express from 'express';
 import { config } from './config';
-import { appRouter } from './controllers/v0/appRouter';
+import { appRouter } from './controllers/appRouter';
 
 (async () => {
-  console.log(config);
   const app = express();
   const port = config.port || 8080;
 
+  app.use(express.json());
+  app.use(express.urlencoded({
+    extended: true
+  }));
   app.use('/api/v0/', appRouter);
 
   app.get('/', async (_, res) => {

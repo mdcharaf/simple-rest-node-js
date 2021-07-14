@@ -1,6 +1,6 @@
-import DashboardRepo from './repos/dashboardRepo';
+import makeDashboardRepo from './repos/dashboardRepo';
 import { getDbClient } from './clients/mongoDbClient'
 
-const dashboardRepo = new DashboardRepo(getDbClient);
+const dashboardRepo = makeDashboardRepo({ getDbClient });
 
 export { dashboardRepo };

@@ -1,11 +1,11 @@
-export default class DashboardRepo
-{
-  constructor(getDbClient) {
-    this.getDbClient = getDbClient;
-  }
+export default function makeDashboardRepo({ getDbClient }) {
+  return Object.freeze({
+    insert
+  })
 
-  async insert(dashboard) {
-    const dbClient = await this.getDbClient();
-    dbClient.collection('crowdanalyzer').insertOne(dashboard);
+  async function insert(obj) {
+    const dbClient = await getDbClient();
+    const result = await dbClient.collection('dashboards').insertOne(obj);
+    return result.ops[0];
   }
 }
