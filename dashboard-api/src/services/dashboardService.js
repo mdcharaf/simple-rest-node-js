@@ -1,10 +1,14 @@
 export default function makeDashboardService({ dashboardRepo }) {
   return Object.freeze({
+    listDashboards,
     addDashboard
   })
 
+  async function listDashboards() {
+    return await dashboardRepo.list();
+  }
+
   async function addDashboard(dashboard) {
-    const result = await dashboardRepo.insert(dashboard);
-    return result;
+    return await dashboardRepo.insert(dashboard);
   }
 }
