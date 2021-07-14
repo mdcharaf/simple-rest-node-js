@@ -2,7 +2,9 @@ export default function makeDashboardRepo({ getDbClient }) {
   return Object.freeze({
     list,
     insert,
-    remove
+    remove,
+    insertChart,
+    removeChart
   });
 
   async function list() {
@@ -31,5 +33,25 @@ export default function makeDashboardRepo({ getDbClient }) {
       .deleteOne({ _id });
 
     return result.deletedCount;
+  }
+
+  async function insertChart({ dashboardId: _id, ...chartObj }) {
+    const dbClient = await getDbClient();
+
+    const result = await dbClient
+      .collection('dashboards')
+      .updateOne({ _id }, { $push: { charts: { ...chartObj } }});
+
+    return result.modifiedCount;
+  }
+
+  async function removeChart({ dashboardId, chartId }) {
+    const dbClient = await getDbClient();
+
+    const result = await dbClient
+      .collection('dashboards')
+      .updateOne({ _id: dashboardId }, { $pull: { charts: { _id: chartId } }});
+
+    return result.modifiedCount;
   }
 }

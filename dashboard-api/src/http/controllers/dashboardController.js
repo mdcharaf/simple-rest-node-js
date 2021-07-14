@@ -1,6 +1,6 @@
 import { created, badRequest, ok} from '../httpUtils';
 
-export default function dashboardController({ dashboardService, makeDashboard }) {
+export default function makeDashboardController({ dashboardService, makeDashboard }) {
   return Object.freeze({
     list,
     add,
