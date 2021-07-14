@@ -1,8 +1,8 @@
-import buildMakeDashboard from './dashboard';
+import buildMakeDashboard from './dashboard'
 import buildMakeChart from './chart'
-import Id  from '../utils/Id';
+import Id from '../utils/Id'
 
-const makeDashboard = buildMakeDashboard({ Id });
-const makeChart = buildMakeChart({ Id });
+const makeDashboard = buildMakeDashboard({ Id })
+const makeChart = buildMakeChart({ Id })
 
-export { makeDashboard, makeChart };
+export { makeDashboard, makeChart }

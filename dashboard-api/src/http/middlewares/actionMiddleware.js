@@ -1,6 +1,6 @@
 import { request } from '../httpUtils'
 
-export function redirectToControllerAction(controllerAction) {
+export function redirectToControllerAction (controllerAction) {
   return async (req, res) => {
     const httpRequest = request({
       body: req.body,
@@ -11,17 +11,17 @@ export function redirectToControllerAction(controllerAction) {
       headers: {
         'Content-Type': req.get('Content-Type')
       }
-    });
+    })
 
     try {
-      const httpResponse = await controllerAction(httpRequest);
+      const httpResponse = await controllerAction(httpRequest)
       if (httpResponse.headers) {
-        res.set(httpResponse.headers);
+        res.set(httpResponse.headers)
       }
-      res.type('json');
-      res.status(httpResponse.statusCode).send(httpResponse.body);
+      res.type('json')
+      res.status(httpResponse.statusCode).send(httpResponse.body)
     } catch (error) {
-      res.status(500).send({ error: error.message });
+      res.status(500).send({ error: error.message })
     }
   }
 }

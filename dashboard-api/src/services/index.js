@@ -1,8 +1,7 @@
-import { dashboardRepo } from '../db/repos';
+import { dashboardRepo } from '../db/repos'
 import { makeDashboard } from '../models'
-import makeDashboardService from './dashboardService';
+import makeDashboardService from './dashboardService'
 
-const dashboardService = makeDashboardService({ dashboardRepo, makeDashboard });
+const dashboardService = makeDashboardService({ dashboardRepo, makeDashboard })
 
-export { dashboardService };
-
+export { dashboardService }
