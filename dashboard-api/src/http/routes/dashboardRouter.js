@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { dashboardController } from '../controllers';
-import { redirect } from '../middlewares'
+import { redirectToControllerAction } from '../middlewares/actionMiddleware'
 
 const router = Router();
-router.get('/', redirect(dashboardController.list));
-router.post('/', redirect(dashboardController.add));
+router.get('/', redirectToControllerAction(dashboardController.list));
+router.post('/', redirectToControllerAction(dashboardController.add));
 
 export const dashboardRouter  = router;

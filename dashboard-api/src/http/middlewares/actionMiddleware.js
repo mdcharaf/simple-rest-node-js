@@ -1,6 +1,6 @@
 import { makeRequest } from '../httpTransactions'
 
-export function redirect(controllerAction) {
+export function redirectToControllerAction(controllerAction) {
   return async (req, res) => {
     const httpRequest = makeRequest({
       body: req.body,
