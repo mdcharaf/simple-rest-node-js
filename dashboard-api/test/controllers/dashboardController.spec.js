@@ -1,5 +1,4 @@
 import chai from 'chai'
-// import Id from '../../src/utils/Id'
 import { makeDashboard } from '../../src/models'
 import makeDashboardController from '../../src/http/controllers/dashboardController'
 
@@ -12,7 +11,8 @@ describe('dashboard controller tests', () => {
       { title: '1', description: '1', charts: [] },
       { title: '2', description: '2', charts: [] },
       { title: '4', description: '2', charts: [] }
-    ]
+    ],
+    removeDashboard: (id) => 1
   }
   let dashboardController
 
@@ -74,6 +74,21 @@ describe('dashboard controller tests', () => {
       // assert
       expect(response.statusCode).to.equal(200)
       expect(response.body).to.have.deep.members(dashboards)
+    })
+  })
+
+  describe('remove dashboard tests', () => {
+    it('should remove dashboard', async () => {
+      // arrange
+      const dummyId = '123'
+      const expectedCount = dashboardServiceMock.removeDashboard(dummyId)
+
+      // act
+      const response = await dashboardController.remove({ params: { id: dummyId } })
+
+      // assert
+      expect(response.statusCode).to.equal(200)
+      expect(response.body.deleteCount).to.equal(expectedCount)
     })
   })
 })
