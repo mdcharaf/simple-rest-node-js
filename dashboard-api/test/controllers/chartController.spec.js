@@ -9,7 +9,8 @@ const expect = chai.expect
 describe('chart controller tests', () => {
   const dashboardId = Id.makeId()
   const dashboardServiceMock = {
-    addChart: async () => { }
+    addChart: async () => {},
+    removeChart: async (dashboardId, chartId) => {}
   }
   let chartController
 
@@ -17,7 +18,7 @@ describe('chart controller tests', () => {
     chartController = makeChartController({ dashboardService: dashboardServiceMock, makeChart })
   })
 
-  describe('add charts tests', async () => {
+  describe('add charts tests', () => {
     describe('add charts happy scenarios tests', () => {
       const scenarios = [
         { chart: { dashboardId, title: 'dummy', type: 'line', range: '5/5/2020-6/6/2020', interval: 'month' } },
@@ -84,6 +85,19 @@ describe('chart controller tests', () => {
           expect(response.body.error).to.equal(scenario.expectedError)
         })
       })
+    })
+  })
+
+  describe('remove charts tests', () => {
+    it('should remove chart successfully', async () => {
+      // arrange
+      const chartId = Id.makeId()
+
+      // act
+      const response = await chartController.remove({ body: { dashboardId }, params: { chartId } })
+
+      // assert
+      expect(response.statusCode).to.equal(200)
     })
   })
 })
