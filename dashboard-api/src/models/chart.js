@@ -42,9 +42,13 @@ export default function buildMakeChart ({ Id }) {
       throw new Error('Invalid interval value')
     }
 
-    const diffInHours = (to - from) / 1000 * 60 * 60
-    if (interval === 'hour' && diffInHours > 7) {
-      throw new Error('Cannot use interval hour when date range is more than 7 hours')
+    if (interval === 'hour') {
+      const fromDate = new Date(dates[0])
+      const toDate = new Date(dates[1])
+      const diffInHours = (toDate - fromDate) / (1000 * 60 * 60)
+      if (diffInHours > 7) {
+        throw new Error('Cannot use interval hour when date range is more than 7 hours')
+      }
     }
 
     return Object.freeze({

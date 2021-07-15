@@ -7,8 +7,9 @@ import makeChartController from '../../src/http/controllers/chartController'
 const expect = chai.expect
 
 describe('chart controller tests', () => {
+  const dashboardId = Id.makeId()
   const dashboardServiceMock = {
-    addChart: async () => {}
+    addChart: async () => { }
   }
   let chartController
 
@@ -17,30 +18,28 @@ describe('chart controller tests', () => {
   })
 
   describe('add charts tests', async () => {
-    it('should add chart successfully', async () => {
-      // arrange
-      const chart = {
-        dashboardId: Id.makeId(),
-        title: 'dummy',
-        type: 'line',
-        range: '5/5/2020-6/6/2020',
-        interval: 'month'
-      }
+    describe('add charts happy scenarios tests', () => {
+      const scenarios = [
+        { chart: { dashboardId, title: 'dummy', type: 'line', range: '5/5/2020-6/6/2020', interval: 'month' } },
+        { chart: { dashboardId, title: 'dummy', type: 'bar', range: '5/5/2020-6/6/2020', interval: 'day' } },
+        { chart: { dashboardId, title: 'dummy', type: 'pie', range: '5/5/2020 00:00:00-5/5/2020 01:00:00', interval: 'hour' } }
+      ]
 
-      // act
-      const response = await chartController.add({ body: chart })
+      scenarios.forEach(scenario => {
+        it('should add chart successfully', async () => {
+          // act
+          const response = await chartController.add({ body: scenario.chart })
+          // assert
+          const { id: chartId, ...chartInfo } = response.body
 
-      // assert
-      const { id: chartId, ...chartInfo } = response.body
-
-      expect(response.statusCode).to.equal(201)
-      expect(chartId).not.to.be.null
-      expect({ ...chartInfo }).to.deep.equal(chart)
+          expect(response.statusCode).to.equal(201)
+          expect(chartId).not.to.be.null
+          expect({ ...chartInfo }).to.deep.equal(scenario.chart)
+        })
+      })
     })
 
     describe('invalid add chart scenarios', () => {
-      const dashboardId = Id.makeId()
-
       const scenarios = [
         {
           chart: { dashboardId: null, title: 'dummy', type: 'line', range: '5/5/2020-6/6/2020', interval: 'month' },
@@ -71,7 +70,7 @@ describe('chart controller tests', () => {
           expectedError: 'Invalid interval value'
         },
         {
-          chart: { dashboardId, title: 'dummy', type: 'line', range: '5/5/2020 00:00:00 - 5/5/2020 08:00:00', interval: 'hour' },
+          chart: { dashboardId, title: 'dummy', type: 'line', range: '5/5/2020 00:00:00-5/5/2020 08:00:00', interval: 'hour' },
           expectedError: 'Cannot use interval hour when date range is more than 7 hours'
         }
       ]
@@ -80,7 +79,6 @@ describe('chart controller tests', () => {
         it('should respond with 400 when trying to add an invalid chart', async () => {
           // arrange, act
           const response = await chartController.add({ body: scenario.chart })
-
           // assert
           expect(response.statusCode).to.equal(400)
           expect(response.body.error).to.equal(scenario.expectedError)
