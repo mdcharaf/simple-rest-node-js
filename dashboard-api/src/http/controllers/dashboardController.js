@@ -7,7 +7,6 @@ export default function makeDashboardController ({ dashboardService, makeDashboa
     remove
   })
 
-  // eslint-disable-next-line no-unused-vars
   async function list (_httpRequest) {
     try {
       const result = await dashboardService.listDashboards()
