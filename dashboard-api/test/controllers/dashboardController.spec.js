@@ -1,4 +1,5 @@
 import chai from 'chai'
+// import Id from '../../src/utils/Id'
 import { makeDashboard } from '../../src/models'
 import makeDashboardController from '../../src/http/controllers/dashboardController'
 
@@ -6,7 +7,12 @@ const expect = chai.expect
 
 describe('dashboard controller tests', () => {
   const dashboardServiceMock = {
-    addDashboard: (obj) => obj
+    addDashboard: (obj) => obj,
+    listDashboards: () => [
+      { title: '1', description: '1', charts: [] },
+      { title: '2', description: '2', charts: [] },
+      { title: '4', description: '2', charts: [] }
+    ]
   }
   let dashboardController
 
@@ -54,6 +60,20 @@ describe('dashboard controller tests', () => {
           expect(response.body.title).to.equal(variations.expectedError)
         })
       })
+    })
+  })
+
+  describe('list dashboard tests', () => {
+    it('should list dashboards', async () => {
+      // arrange
+      const dashboards = dashboardServiceMock.listDashboards()
+
+      // act
+      const response = await dashboardController.list()
+
+      // assert
+      expect(response.statusCode).to.equal(200)
+      expect(response.body).to.have.deep.members(dashboards)
     })
   })
 })
