@@ -13,6 +13,10 @@ Simply to CRUD Dashboards and Charts.
  * To run the application locally, run:
      ```bash
      npm run dev
+
+ * To test the application locally, run:
+     ```bash
+     npm run test
      
   ### Documentation
    https://app.swaggerhub.com/apis/mdcharaf/DashboardAPI/1.0.0
