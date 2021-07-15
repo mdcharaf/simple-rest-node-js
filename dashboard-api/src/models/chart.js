@@ -8,11 +8,11 @@ export default function buildMakeChart ({ Id }) {
     interval
   }) {
     if (!Id.isValid(id)) {
-      throw new Error('Invalid dashboard id')
+      throw new Error('Invalid chart id')
     }
 
     if (!Id.isValid(dashboardId)) {
-      throw new Error('Invalid Dashboard Id')
+      throw new Error('Invalid dashboard id')
     }
 
     if (!title) {

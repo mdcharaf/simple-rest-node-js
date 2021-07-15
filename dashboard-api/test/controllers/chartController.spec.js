@@ -37,5 +37,55 @@ describe('chart controller tests', () => {
       expect(chartId).not.to.be.null
       expect({ ...chartInfo }).to.deep.equal(chart)
     })
+
+    describe('invalid add chart scenarios', () => {
+      const dashboardId = Id.makeId()
+
+      const scenarios = [
+        {
+          chart: { dashboardId: null, title: 'dummy', type: 'line', range: '5/5/2020-6/6/2020', interval: 'month' },
+          expectedError: 'Invalid dashboard id'
+        },
+        {
+          chart: { dashboardId, type: 'line', range: '5/5/2020-6/6/2020', interval: 'month' },
+          expectedError: 'Invalid chart title'
+        },
+        {
+          chart: { dashboardId, title: 'dummy', type: 'dummy', range: '5/5/2020-6/6/2020', interval: 'month' },
+          expectedError: 'Invalid chart type, choose among line, pie or bar'
+        },
+        {
+          chart: { dashboardId, title: 'dummy', type: 'bar', range: 'dummy', interval: 'month' },
+          expectedError: 'Invalid range value, use range format {from}-{to}'
+        },
+        {
+          chart: { dashboardId, title: 'dummy', type: 'pie', range: '5/5/2020-6/6/2020-5/5/2020', interval: 'month' },
+          expectedError: 'Invalid range value, use range format {from}-{to}'
+        },
+        {
+          chart: { dashboardId, title: 'dummy', type: 'pie', range: '6/6/2020-5/5/2020', interval: 'month' },
+          expectedError: 'Invalid date range values'
+        },
+        {
+          chart: { dashboardId, title: 'dummy', type: 'line', range: '5/5/2020-6/6/2020', interval: 'minute' },
+          expectedError: 'Invalid interval value'
+        },
+        {
+          chart: { dashboardId, title: 'dummy', type: 'line', range: '5/5/2020 00:00:00 - 5/5/2020 08:00:00', interval: 'hour' },
+          expectedError: 'Cannot use interval hour when date range is more than 7 hours'
+        }
+      ]
+
+      scenarios.forEach(scenario => {
+        it('should respond with 400 when trying to add an invalid chart', async () => {
+          // arrange, act
+          const response = await chartController.add({ body: scenario.chart })
+
+          // assert
+          expect(response.statusCode).to.equal(400)
+          expect(response.body.error).to.equal(scenario.expectedError)
+        })
+      })
+    })
   })
 })
