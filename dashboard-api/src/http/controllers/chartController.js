@@ -14,7 +14,9 @@ export default function makeChartController ({ dashboardService, makeChart }) {
       return created({
         body: {
           id: chart.id,
+          dashboardId: chart.dashboardId,
           title: chart.title,
+          type: chart.type,
           range: chart.range,
           interval: chart.interval
         }

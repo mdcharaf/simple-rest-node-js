@@ -31,7 +31,6 @@ describe('dashboard controller tests', () => {
 
       // act
       const response = await dashboardController.add({ body: dashboard })
-      console.log(response)
 
       // assert
       expect(response.statusCode).to.equal(201)
