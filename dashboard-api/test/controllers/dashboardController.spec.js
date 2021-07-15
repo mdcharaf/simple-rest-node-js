@@ -31,6 +31,7 @@ describe('dashboard controller tests', () => {
 
       // act
       const response = await dashboardController.add({ body: dashboard })
+      console.log(response)
 
       // assert
       expect(response.statusCode).to.equal(201)
@@ -89,6 +90,19 @@ describe('dashboard controller tests', () => {
       // assert
       expect(response.statusCode).to.equal(200)
       expect(response.body.deleteCount).to.equal(expectedCount)
+    })
+
+    it('should respond with 400 when fail to remove', async () => {
+      // arrange
+      const dummyId = '123'
+      dashboardServiceMock.removeDashboard = (id) => { throw new Error('Failed') }
+
+      // act
+      const response = await dashboardController.remove({ params: { id: dummyId } })
+
+      // assert
+      expect(response.statusCode).to.equal(400)
+      expect(response.body.error).to.equal('Failed')
     })
   })
 })
