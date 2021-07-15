@@ -2,6 +2,9 @@
 
 Simply to CRUD Dashboards and Charts.
 
+ ### Prerequsites
+ Add .env file to the base directory
+
  ### Backend API
  * To download all the package dependencies, run the command
      ```bash
@@ -10,3 +13,6 @@ Simply to CRUD Dashboards and Charts.
  * To run the application locally, run:
      ```bash
      npm run dev
+     
+  ### Documentation
+   https://app.swaggerhub.com/apis/mdcharaf/DashboardAPI/1.0.0
