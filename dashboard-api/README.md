@@ -2,6 +2,9 @@
 
 Simply to CRUD Dashboards and Charts.
 
+ ### Prerequsites
+ Add .env file to the base directory
+
  ### Backend API
  * To download all the package dependencies, run the command
      ```bash
